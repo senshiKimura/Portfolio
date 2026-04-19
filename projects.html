@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menahem Setbon | Projets</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Matrix Rain -->
+<canvas id="matrix-canvas"></canvas>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-logo"><a href="index.html" style="text-decoration:none;color:inherit">&gt; <span>M</span>_SETBON</a></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Portfolio</a></li>
+    <li><a href="projects.html" class="active">Projets</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════ PROJETS ═══════════ -->
+<section id="projects" style="min-height:100vh; padding-top:100px;">
+  <div class="container">
+    <div class="section-title">Projets</div>
+    <div class="section-line"></div>
+    <div class="projects-grid">
+
+      <!-- ╔══ MODÈLE DE CARTE — duplique ce bloc pour chaque projet ══╗
+      <div class="project-card reveal">
+        <div class="project-header">
+          <span class="project-icon">🔧</span>
+          <span class="project-title">Nom du projet</span>
+          <span class="project-type">Pentest Tool</span>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">
+            Description courte du projet — ce qu'il fait, dans quel contexte, quel problème il résout.
+          </p>
+          <div class="project-stack">
+            <span class="tag">Python</span>
+            <span class="tag">Bash</span>
+            <span class="tag blue">Linux</span>
+          </div>
+        </div>
+        <div class="project-footer">
+          <a href="https://github.com/..." target="_blank" class="project-link">⌥ GitHub</a>
+          <a href="#" class="project-link private">🔒 Privé</a>
+        </div>
+      </div>
+    
+
+      <!-- Placeholder affiché tant qu'aucun projet n'est ajouté -->
+      <div class="projects-empty">
+        <span>📂</span>
+        <code>// Projets à venir — en cours de chargement...</code>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <span>&gt;</span> Menahem Setbon © 2026 — Security Engineer / Pentester &nbsp;|&nbsp; Built with <span>&#9829;</span> &amp; Coffee
+</footer>
+
+<!-- ─── SCRIPTS ─── -->
+<script>
+  /* ── Matrix Rain ── */
+  (function () {
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+    let cols, drops;
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEF<>{}[]#$@!';
+    const fontSize = 14;
+
+    function init() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      cols = Math.floor(canvas.width / fontSize);
+      drops = Array(cols).fill(1);
+    }
+
+    function draw() {
+      ctx.fillStyle = 'rgba(6,10,15,0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00ff41';
+      ctx.font = fontSize + 'px Courier New';
+      for (let i = 0; i < drops.length; i++) {
+        ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    init();
+    setInterval(draw, 50);
+    window.addEventListener('resize', init);
+  })();
+
+  /* ── Scroll Reveal ── */
+  (function () {
+    const els = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(el => observer.observe(el));
+  })();
+</script>
+</body>
+</html>
